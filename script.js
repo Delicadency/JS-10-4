@@ -1,7 +1,7 @@
 const fetchTwoResources = async () => {
   try {
     const findDrink = await fetch(
-      "https://www.thecocktaildb.com/api/json/v1/1/search.php?f=a"
+      "https://www.thecocktaildb.com/api/json/v1/1/search.php?f=a",
     );
     const data = await findDrink.json();
     const drinks = data?.drinks;
@@ -9,10 +9,11 @@ const fetchTwoResources = async () => {
       const firstDrink = drinks[0];
       const getDrinkID = firstDrink.idDrink;
       const findReceipeByID = await fetch(
-        "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=" + getDrinkID
+        "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=" +
+          getDrinkID,
       );
       const receipeData = await findReceipeByID.json();
-      console.log(receipeData);
+      return receipeData;
     } else {
       return "Nie znaleziono obiektu.";
     }
@@ -20,4 +21,6 @@ const fetchTwoResources = async () => {
     console.log(error);
   }
 };
-fetchTwoResources();
+fetchTwoResources().then((result) => {
+  console.log(result);
+});
